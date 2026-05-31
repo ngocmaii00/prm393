@@ -1,30 +1,46 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:lab1/main.dart';
+import 'package:lab1/lab4/lab4_app.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('Lab 4 home shows all exercises', (WidgetTester tester) async {
+    await tester.pumpWidget(const Lab4App());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(find.text('Lab 4 - Flutter UI Fundamentals'), findsOneWidget);
+    expect(find.text('Exercise 1 - Core Widgets Demo'), findsOneWidget);
+    expect(find.text('Exercise 2 - Input Controls Demo'), findsOneWidget);
+    expect(find.text('Exercise 3 - Layout Demo'), findsOneWidget);
+    expect(find.text('Exercise 4 - App Structure & Theme'), findsOneWidget);
+    expect(find.text('Exercise 5 - Common UI Fixes'), findsOneWidget);
+  });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+  testWidgets('Exercise 2 date picker button is reachable', (tester) async {
+    await tester.pumpWidget(const Lab4App());
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    await tester.tap(find.text('Exercise 2 - Input Controls Demo'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Open Date Picker'), findsOneWidget);
+    expect(find.text('Updated values'), findsOneWidget);
+  });
+
+  testWidgets('Exercise 4 dark mode can toggle on and off', (tester) async {
+    await tester.pumpWidget(const Lab4App());
+
+    await tester.tap(find.text('Exercise 4 - App Structure & Theme'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Light mode is enabled'), findsOneWidget);
+
+    await tester.tap(find.byType(Switch));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Dark mode is enabled'), findsOneWidget);
+
+    await tester.tap(find.byType(Switch));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Light mode is enabled'), findsOneWidget);
   });
 }
