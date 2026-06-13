@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'lab5/lab5_app.dart';
+import 'lab6/lab6_app.dart';
 
 void main() {
-  runApp(const Lab5App());
+  runApp(const Lab6App());
 }
